@@ -1,0 +1,68 @@
+---
+title: "Finite Mixture Model"
+output: pdf_document
+---
+
+# Introduction
+Imagine we randomly choose a distribution to sample from. Let k denote which distribution we choose.
+
+* Distribution 1
+  * Parameter $\Omega_1$
+  * Probability of choosing distribution 1 is $\pi_1$
+  * $x | k = 1,\Omega_1 \;\sim \text{Pr}(x|k=1,\Omega_1)$
+* Distribution 2
+  * Parameter $\Omega_2$
+  * Probability of choosing distribution 2 is $\pi_2$
+  * $x | k = 2,\Omega_2 \;\sim \text{Pr}(x|k=2,\Omega_2)$
+
+$\vdots$
+
+* Distribution C
+  * Parameter $\Omega_C$
+  * Probability of choosing distribution C is $\pi_C$
+  * $x | k = C,\Omega_C \;\sim \text{Pr}(x|k=C,\Omega_C)$
+
+
+
+In general we have data $\textbf{x} = \{x_1,x_2,...x_n\}$.
+Suppose we know which distribution each sample was sampled from $\textbf{k}=\{k_1,k_2,...k_n\}$.
+We know the parameters of each distribution $\boldsymbol\Omega=\{\Omega_1,\Omega_2,...\Omega_C\}$.
+Finally we know the probability of choosing each distribution $\boldsymbol\pi=\{\pi_1,\pi_2,...\pi_C\}$. We can represent each sample as:
+
+$$x_i | k_i,\boldsymbol\Omega \;\sim \text{Pr}(x_i|k_i,\boldsymbol\Omega)$$
+
+
+# Bayes Theorm
+
+$$\text{Pr}(\textbf{k},\boldsymbol\Omega | \textbf{x}) \propto
+\text{Pr}(\textbf{x}|\textbf{k},\boldsymbol\Omega)
+\text{Pr}(\textbf{k},\boldsymbol\Omega,\boldsymbol\pi)$$
+
+
+## Prior
+We often times assume independence between the some of the parameters
+
+$$
+\text{Pr}(\textbf{k},\boldsymbol\Omega,\boldsymbol\pi) =
+\text{Pr}(\textbf{k}|\boldsymbol\pi)\text{Pr}(\boldsymbol\pi)\text{Pr}(\boldsymbol\Omega)$$
+
+
+$$\begin{aligned}
+\text{Pr}(\textbf{k},\boldsymbol\Omega,\boldsymbol\pi)
+&= \text{Pr}(\textbf{k},\boldsymbol\pi)\text{Pr}(\boldsymbol\Omega) \\
+&\propto \text{Pr}(\textbf{k}|\boldsymbol\pi)\text{Pr}(\boldsymbol\pi)\text{Pr}(\boldsymbol\Omega)
+\end{aligned}$$
+
+### Prior $\text{Pr}(\textbf{k}|\boldsymbol\pi)$
+todo
+
+### Prior $\text{Pr}(\boldsymbol\pi)$
+todo
+
+### Prior $\text{Pr}(\boldsymbol\Omega)$
+todo
+
+
+## Likelihood
+
+todo : We want a general form for $\text{Pr}(\textbf{x}|\textbf{k},\boldsymbol\Omega)$
