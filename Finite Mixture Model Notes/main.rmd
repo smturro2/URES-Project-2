@@ -1,6 +1,8 @@
 ---
 title: "Finite Mixture Model"
-output: pdf_document
+output:
+  pdf_document:
+    extra_dependencies: ["bbm"]
 ---
 
 # Introduction
@@ -46,23 +48,74 @@ $$
 \text{Pr}(\textbf{k},\boldsymbol\Omega,\boldsymbol\pi) =
 \text{Pr}(\textbf{k}|\boldsymbol\pi)\text{Pr}(\boldsymbol\pi)\text{Pr}(\boldsymbol\Omega)$$
 
-
 $$\begin{aligned}
 \text{Pr}(\textbf{k},\boldsymbol\Omega,\boldsymbol\pi)
 &= \text{Pr}(\textbf{k},\boldsymbol\pi)\text{Pr}(\boldsymbol\Omega) \\
 &\propto \text{Pr}(\textbf{k}|\boldsymbol\pi)\text{Pr}(\boldsymbol\pi)\text{Pr}(\boldsymbol\Omega)
 \end{aligned}$$
 
-### Prior $\text{Pr}(\textbf{k}|\boldsymbol\pi)$
-todo
 
 ### Prior $\text{Pr}(\boldsymbol\pi)$
-todo
+We typically sample $\boldsymbol\pi$ from a [Dirichlet Distribution](https://en.wikipedia.org/wiki/Dirichlet_distribution). If so we have the following:
+
+$$\boldsymbol\pi \sim \text{Dirichlet}(\boldsymbol\alpha) \; \big| \; \boldsymbol\alpha \in [0,\infty)^C$$
+using the PDF of the Dirichlet Distribution we can get:
+
+$$\text{Pr}(\boldsymbol\pi) =
+\frac{1}{B(\boldsymbol\alpha)} \prod_{j=1}^{C} \pi_j^{\alpha_j-1}$$
+The normalization constant is found using this B function. In this $\Gamma(x)$ denotes the Gamma function.
+
+$$B(\boldsymbol\alpha) = \frac{
+\prod_{j=1}^{C}\Gamma(\alpha_j)
+}{
+\Gamma(\sum_{j=1}^{C}\alpha_j)
+}$$
+
+### Prior $\text{Pr}(\textbf{k}|\boldsymbol\pi)$
+for a single sample $k_i$ the probability is just the associated $\pi$
+
+$$\text{Pr}(k_i|\boldsymbol\pi) = \pi_{k_i}$$
+
+We can represent in a diffrent way were we product over all the $\pi$
+
+$$\text{Pr}(k_i|\boldsymbol\pi) = \prod_{j=1}^{C} \pi_j^{\delta_{k_ij}}$$
+
+$\delta_{k_ij}$ Is the Kronecker delta function $\delta_{i j}= \begin{cases}0 & \text { if } i \neq j \\ 1 & \text { if } i=j\end{cases}$. Lets see what this looks like for when $k_i=2$
+
+$$\begin{aligned}
+\text{Pr}(k_i=2|\boldsymbol\pi) &= \prod_{j=1}^{C} \pi_j^{\delta_{2j}} \\
+&= \pi_1^{\delta_{21}} \pi_2^{\delta_{22}} \pi_2^{\delta_{23}} \hdots \pi_C^{\delta_{2C}} \\
+&= \pi_1^{0} \pi_2^{1} \pi_2^{0} \hdots \pi_C^{0} \\
+&= \pi_2\\
+\end{aligned}$$
+
+We can see that this product is another way to represent the math. Going back to finding $\text{Pr}(\textbf{k}|\boldsymbol\pi)$ we can assume that $k_i$ are independent of each other
+
+$$\begin{aligned}
+\text{Pr}(\textbf{k}|\boldsymbol\pi) &= \prod_{i=1}^{n} \text{Pr}(k_i|\boldsymbol\pi) \\
+&= \prod_{i=1}^{n} \prod_{j=1}^{C} \pi_j^{\delta_{k_ij}} \\
+&= \prod_{i=1}^{n} \pi_j^{n_j} \; \bigg| \; n_j \; \text{is number of samples in category j} \\
+\end{aligned}$$
+
 
 ### Prior $\text{Pr}(\boldsymbol\Omega)$
-todo
+
+
+if we assume independent parameters:
+
+$$\text{Pr}(\boldsymbol\Omega) = \prod_{j=1}^{C}  \text{Pr}(\Omega_j)$$
 
 
 ## Likelihood
 
-todo : We want a general form for $\text{Pr}(\textbf{x}|\textbf{k},\boldsymbol\Omega)$
+We can look at a single sample and do a smilar thing that we did for $\text{Pr}(\textbf{k}|\boldsymbol\pi)$
+
+$$\text{Pr}(x_i|k_i,\boldsymbol\Omega) = \prod_{j=1}^{C} \text{Pr}(x_i|k_i=j,\Omega_j)^{\delta_{k_ij}}$$
+
+Looking at all samples we get
+$$\begin{aligned}
+\text{Pr}(\textbf{x}|\textbf{k},\boldsymbol\Omega)
+&= \prod_{i=1}^{n}\text{Pr}(x_i|k_i,\boldsymbol\Omega)\\
+&= \prod_{i=1}^{n}\prod_{j=1}^{C} \text{Pr}(x_i|k_i=j,\Omega_j)^{\delta_{k_ij}} \\
+&= \prod_{j=1}^{C} \prod_{i \big| k_i=j} \text{Pr}(x_i|k_i=j,\Omega_j)\\
+\end{aligned}$$
