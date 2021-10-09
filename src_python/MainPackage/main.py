@@ -116,6 +116,12 @@ class MixtureModelBernoulli():
         # DONE!
         self.fitted_model = True
 
+        # Convert to numpy
+        self.samples_theta_params = np.array(self.samples_theta_params)
+        self.samples_class_assignments = np.array(self.samples_class_assignments)
+        self.samples_class_probabilities = np.array(self.samples_class_probabilities)
+        self.samples_class_membership_scores = np.array(self.samples_class_membership_scores)
+
     """
     """
     def fit_predict(self,X):
@@ -131,11 +137,6 @@ class MixtureModelBernoulli():
         if not self.fitted_model:
             raise ValueError("You must fit the model before asking for the parameters")
 
-        # Convert to numpy
-        self.samples_theta_params = np.array(self.samples_class_assignments)
-        self.samples_class_assignments = np.array(self.samples_class_assignments)
-        self.samples_class_probabilities = np.array(self.samples_class_assignments)
-
         # Find means
         self.mean_theta_params = np.average(self.samples_theta_params,axis=0)
         self.mean_class_assignments = np.average(self.samples_class_assignments,axis=0)
@@ -148,9 +149,6 @@ class MixtureModelBernoulli():
     def get_class_membership_scores(self):
         if not self.fitted_model:
             raise ValueError("You must fit the model before asking for the parameters")
-
-        # Convert to numpy
-        self.samples_class_membership_scores = np.array(self.samples_class_membership_scores)
 
         # Find means
         self.mean_class_membership_scores = np.average(self.samples_class_membership_scores,axis=0)
