@@ -36,6 +36,7 @@ class MixtureModelBernoulli():
         self.initialize_params(num_samples,num_params)
 
         # Initialize lists for samples
+        # todo use np arrays of fixed size instead of lists
         self.samples_theta_params = list()
         self.samples_class_assignments = list()
         self.samples_class_probabilities = list()
@@ -70,7 +71,7 @@ class MixtureModelBernoulli():
             for c in range(self.num_classes):
                 for j in range(num_params):
                     alpha = theta_hyperparams[0]+num_correct_per_class_by_q[c,j]
-                    beta = theta_hyperparams[0]+num_members_per_class[c]-num_correct_per_class_by_q[c,j] # todo double check
+                    beta = theta_hyperparams[1]+num_members_per_class[c]-num_correct_per_class_by_q[c,j] # todo double check
                     self.theta_params[c,j] = self.rand_num_gen.beta(alpha,beta)
             # Append to samples list
             if num_iter>self.burn_in:
