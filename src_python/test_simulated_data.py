@@ -1,12 +1,12 @@
 from MainPackage import MixtureModelBernoulli
+import pandas as pd
+import time
 
-num_classes = 2
+num_classes = 4
 random_state = 100
 
 # Get data
-X_list = [[1,0,1,0],
-          [0,1,0,1],
-          [1,0,1,0]]
+df = pd.read_csv("../Data/test_data.csv",index_col=0)
 
 # Set up model
 C_list = MixtureModelBernoulli(num_classes=num_classes,
@@ -14,10 +14,31 @@ C_list = MixtureModelBernoulli(num_classes=num_classes,
                                burn_in=0,
                                max_iter=1000)
 
+
 # fit the data to the model
-C_list.fit(X_list)
+start_time = time.time()
+C_list.fit(df)
+total_time = time.time() - start_time
+
+print("DONE!")
+print(f"TOTAL TIME{total_time}")
 
 # Get parameters and other things
-print(C_list.get_params()[0])
+k, theta, pi = C_list.get_params()
+print("pi")
+print(pi)
+
 print('\n----------\n')
+
+print("theta")
+print(theta)
+
+print('\n----------\n')
+
+print("k")
+print(k)
+
+
+print('\n----------\n')
+print("Membership scores")
 print(C_list.get_class_membership_scores())
