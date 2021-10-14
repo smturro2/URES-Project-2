@@ -86,10 +86,6 @@ in other words which cluster each subject belongs to. This isn't relevant to our
 #finding centroids (theta) - p from bernoulli equation
 #clusters = cutree(hclust(dist(items_fractions)), k=4) # get 4 clusters
 clusters = k4$cluster
-df_clusters = data.frame(clusters)
-colnames(df_clusters)="Class"
-write.csv(df_clusters,"test_k_vector.csv")
-df_clusters
 ```
 
 # Theta matrix
@@ -113,7 +109,10 @@ df_pi_vec
 # K vector for testing data using k-means
 I have no idea how well our k vector should line up with this since this uses a diffrent algorithm
 ```{r}
-data.frame(kmeans(df_simulated_data, centers = 4, nstart = 20)$cluster)
+df_clusters = data.frame(kmeans(df_simulated_data, centers = 4, nstart = 20)$cluster)
+colnames(df_clusters)="Class"
+write.csv(df_clusters,"test_k_vector.csv")
+df_clusters
 ```
 
 # Other stuff
