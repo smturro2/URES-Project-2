@@ -26,6 +26,7 @@ Our final goal should be to do something similar as in the "other stuff" section
 library(edmdata)
 library(data.table)
 dim(items_fractions)
+set.seed(100)
 ```
 
 ```{r}
@@ -85,19 +86,28 @@ in other words which cluster each subject belongs to. This isn't relevant to our
 #finding centroids (theta) - p from bernoulli equation
 #clusters = cutree(hclust(dist(items_fractions)), k=4) # get 4 clusters
 clusters = k4$cluster
-data.frame(clusters)
+df_clusters = data.frame(clusters)
+colnames(df_clusters)="Class"
+write.csv(df_clusters,"test_k_vector.csv")
+df_clusters
 ```
 
 # Theta matrix
 ```{r}
 row_names = paste("Cluster",seq(1,ncol(theta),1))
 df_theta = data.frame(t(theta),row.names=row_names)
+write.csv(df_theta,"test_theta_matrix.csv")
 df_theta
 ```
 
 # pi vector
 ```{r}
 pi_vec
+row_names = paste("Cluster",seq(1,ncol(theta),1))
+df_pi_vec = data.frame(pi_vec,row.names=row_names)
+colnames(df_pi_vec) = "Probability"
+write.csv(df_pi_vec,"test_pi_vec.csv")
+df_pi_vec
 ```
 
 # K vector for testing data using k-means
