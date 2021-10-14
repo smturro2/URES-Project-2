@@ -70,22 +70,24 @@ gen_data <- function(n,theta,pi_vec,seed){
   row_names = paste("Subject",seq(1,n,1))
   empty.matrix <- data.frame(empty.matrix,row.names=row_names)
   colnames(empty.matrix) <- column_names
-  return(empty.matrix)
+  data <- list("X" = empty.matrix, "K" = cluster_membership)
+  return(data)
 }
 ```
 ```{r}
 n<- 1000 # 1000 simulated samples
-df_simulated_data <- gen_data(n,theta,pi_vec,200)
-write.csv(df_simulated_data,"test_data.csv")
+data <- gen_data(n,theta,pi_vec,200)
+write.csv(data$X,"test_data.csv")
 ```
 
 
 # K vector
-in other words which cluster each subject belongs to. This isn't relevant to our testing data.
+in other words which cluster each subject belongs to.
 ```{r}
-#finding centroids (theta) - p from bernoulli equation
-#clusters = cutree(hclust(dist(items_fractions)), k=4) # get 4 clusters
-clusters = k4$cluster
+df_clusters = data.frame(data$K)
+colnames(df_clusters)="Class"
+write.csv(df_clusters,"test_k_vector.csv")
+df_clusters
 ```
 
 # Theta matrix
@@ -106,17 +108,9 @@ write.csv(df_pi_vec,"test_pi_vec.csv")
 df_pi_vec
 ```
 
-# K vector for testing data using k-means
-I have no idea how well our k vector should line up with this since this uses a diffrent algorithm
-```{r}
-df_clusters = data.frame(kmeans(df_simulated_data, centers = 4, nstart = 20)$cluster)
-colnames(df_clusters)="Class"
-write.csv(df_clusters,"test_k_vector.csv")
-df_clusters
-```
 
 # Other stuff
-I didn't look at this other stuff too in depth. I was just interested in generating some testing data for us
+I didn't look at this other stuff too in depth. I was just interested in generating some testing data for us. Will come back later
 ```{r}
 # function to find medoid in cluster i
 # note: function not used in this code
