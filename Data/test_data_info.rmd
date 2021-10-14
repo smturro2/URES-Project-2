@@ -84,7 +84,8 @@ write.csv(data$X,"test_data.csv")
 # K vector
 in other words which cluster each subject belongs to.
 ```{r}
-df_clusters = data.frame(data$K)
+row_names = paste("Subject ",seq(1,length(data$K)))
+df_clusters = data.frame(data$K,row.names = row_names)
 colnames(df_clusters)="Class"
 write.csv(df_clusters,"test_k_vector.csv")
 df_clusters
@@ -104,7 +105,7 @@ pi_vec
 row_names = paste("Cluster",seq(1,ncol(theta),1))
 df_pi_vec = data.frame(pi_vec,row.names=row_names)
 colnames(df_pi_vec) = "Probability"
-write.csv(df_pi_vec,"test_pi_vec.csv")
+write.csv(df_pi_vec,"test_pi_vector.csv")
 df_pi_vec
 ```
 
