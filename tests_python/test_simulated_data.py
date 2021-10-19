@@ -6,7 +6,7 @@ num_classes = 4
 random_state = 100
 
 # Get data
-df = pd.read_csv("../Data/test_data.csv", index_col=0)
+df = pd.read_csv("../Data/test/test_data.csv", index_col=0)
 
 # Set up model
 C_list = MixtureModelBernoulli(num_classes=num_classes,
