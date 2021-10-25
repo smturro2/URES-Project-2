@@ -23,9 +23,9 @@ X_df = pd.DataFrame(X_np,columns=["Question 1","Question 2","Question 3","Questi
 C_df = MixtureModelBernoulli(num_classes=num_classes,random_state=random_state)
 C_df.fit(X_df)
 
-print(C_list.get_params()[0])
-print(C_np.get_params()[0])
-print(C_df.get_params()[0])
+print(C_list.get_params()[2])
+print(C_np.get_params()[2])
+print(C_df.get_params()[2])
 
 print('\n----------\n')
 

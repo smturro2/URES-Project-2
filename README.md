@@ -17,3 +17,6 @@ are labeled 0,1,2,3...num_classes
 
 * [alpha,beta] -> theta_hyperparams
 * [alpha_c] -> class_prob_hyperparams
+
+# todo
+test for inputs input binary data
