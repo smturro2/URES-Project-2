@@ -1,10 +1,7 @@
 import pandas as pd
 import time
 import sys
-
-# Import MainPackage
-sys.path.append('../src_python')
-from MainPackage import MixtureModelBernoulli
+from BLCC import MixtureModelBernoulli
 
 
 df = pd.read_csv("../Data/NSI/narcissistic_personality_inventory.csv",index_col=0)

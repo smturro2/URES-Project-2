@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-from .main_helpers import *
 from scipy.stats import mode
 
 class MixtureModelBernoulli():
@@ -38,7 +37,7 @@ class MixtureModelBernoulli():
     """
     def fit(self,X):
         # Filter and check the input
-        X = check_input_X(X)
+        X = self.check_input_X(X)
         self.num_samples = X.shape[0]
         self.num_params = X.shape[1]
 
@@ -46,7 +45,6 @@ class MixtureModelBernoulli():
         theta_params, class_probabilities, class_assignments = self.initialize_params(self.num_samples,self.num_params)
 
         # Initialize lists for samples
-        # todo use np arrays of fixed size instead of lists
         self.samples_theta_params = np.zeros((self._max_iter,self.num_classes,self.num_params))
         self.samples_class_assignments = np.zeros((self._max_iter,self.num_samples))
         self.samples_class_probabilities = np.zeros((self._max_iter,self.num_classes))
@@ -259,3 +257,22 @@ class MixtureModelBernoulli():
         class_probabilities = self._rand_num_gen.uniform(size=(self.num_classes))
         class_probabilities = class_probabilities / np.sum(class_probabilities)
         return theta_params,class_probabilities,class_assignments
+
+    """
+    Checks the input to make sure it is valid.
+    If so it returns input as numpy
+    ----------------------
+    X : array-like of shape (num_samples, num_params)
+    ----------------------
+    X : numpy array of shape (num_samples, num_params)
+    """
+    def check_input_X(self,X):
+        if isinstance(X, pd.DataFrame):
+            X = X.to_numpy()
+
+        if not isinstance(X, np.ndarray):
+            X = np.array(X)
+
+        if len(X.shape) != 2:
+            raise ValueError(f"X has shape {X.shape}. X must have a shape of 2")
+        return X.copy()

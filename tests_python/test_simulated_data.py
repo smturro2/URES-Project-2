@@ -2,10 +2,7 @@ import pandas as pd
 import time
 import sys
 import numpy as np
-
-# Import MainPackage
-sys.path.append('../src_python')
-from MainPackage import MixtureModelBernoulli
+from BLCC import MixtureModelBernoulli
 
 # Get data
 df = pd.read_csv("../Data/test/test_data.csv", index_col=0)

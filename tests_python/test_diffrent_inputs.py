@@ -1,4 +1,6 @@
 import pandas as pd
+
+from BLCC import MixtureModelBernoulli
 import numpy as np
 
 num_classes = 2
