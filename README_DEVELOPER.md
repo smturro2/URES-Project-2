@@ -8,6 +8,7 @@ For best results [install this version of python](https://www.python.org/downloa
 2. **Create a virtual environment** by typing the following in the command prompt. Make sure you are at the top most level of the repo.
 
          py -m venv venv
+
 3. **Activate virtual environment**
 
         venv\Scripts\activate.bat

@@ -1,6 +1,4 @@
 import pandas as pd
-
-from MainPackage import MixtureModelBernoulli
 import numpy as np
 
 num_classes = 2

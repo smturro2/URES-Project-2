@@ -11,4 +11,4 @@ def check_input_X(X):
 
     if len(X.shape) != 2:
         raise ValueError(f"X has shape {X.shape}. X must have a shape of 2")
-    return X
+    return X.copy()
