@@ -6,11 +6,12 @@ import numpy as np
 num_classes = 2
 random_state = 100
 
-
 # Testing List
 X_list = [[1,0,1,0],[0,1,0,1],[1,1,1,0]]
-C_list = MixtureModelBernoulli(num_classes=num_classes,random_state=random_state)
+C_list = MixtureModelBernoulli(num_classes=num_classes,random_state=random_state,burn_in=0)
 C_list.fit(X_list)
+
+
 
 
 # Testing Numpy

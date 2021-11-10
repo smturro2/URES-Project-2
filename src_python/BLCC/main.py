@@ -59,7 +59,7 @@ class MixtureModelBernoulli():
         ohe_converter = np.arange(self.num_classes)
 
         # Main Loop
-        num_iter = 1
+        num_iter = 0
         while num_iter < (self._max_iter+self._burn_in):
 
             # Calculate num_members_per_class
@@ -76,7 +76,7 @@ class MixtureModelBernoulli():
             beta = theta_hyperparams[1] + num_members_per_class[:,np.newaxis] - num_correct_per_class_by_q
             theta_params = self._rand_num_gen.beta(alpha, beta)
             # Append to samples list
-            if num_iter>self._burn_in:
+            if num_iter>=self._burn_in:
                 self.samples_theta_params[num_iter-self._burn_in] = theta_params.copy()
 
 
@@ -230,7 +230,7 @@ class MixtureModelBernoulli():
     Returns the log-likelihood using the estimate parameters
     """
     def loglikelihood(self):
-        if not self._fitted_model:
+        if not self._fitted_(mode):
             raise ValueError("You must fit the model before resampling")
         # Calculate likelihood
         loglikelihood = 0
